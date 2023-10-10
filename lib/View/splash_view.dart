@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter/services.dart'; // KeychainManager의 대체로 사용 - flutter_secure_storage 패키지 사용하기 위해 추가
 
-class SplashScreen extends StatefulWidget {
+class SplashView extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashView> {
   @override
   void initState() {
     super.initState();
