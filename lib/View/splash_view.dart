@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:flutter/services.dart'; // KeychainManager의 대체로 사용 - flutter_secure_storage 패키지 사용하기 위해 추가
+import 'package:flutter/services.dart';
+
+import '../API/keychain.dart'; // KeychainManager의 대체로 사용 - flutter_secure_storage 패키지 사용하기 위해 추가
 
 class SplashView extends StatefulWidget {
   @override
@@ -11,10 +13,18 @@ class _SplashScreenState extends State<SplashView> {
   @override
   void initState() {
     super.initState();
+    loadInitialRoute();
+  }
+
+  Future<void> loadInitialRoute() async {
+    String? token = await TokenStorage().readToken();
+
+    String initialRoute = token != null ? '/todo' : '/login';
     Timer(const Duration(seconds: 2), () {
-      Navigator.pushReplacementNamed(context, '/login');
+      Navigator.pushReplacementNamed(context, initialRoute);
     });
   }
+
 
   @override
   Widget build(BuildContext context) {

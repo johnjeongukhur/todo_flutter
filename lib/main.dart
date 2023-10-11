@@ -11,7 +11,7 @@ void main() async {
 
   String? token = await TokenStorage().readToken();
 
-  runApp(MyApp(initialRoute: token != null ? '/todo' : '/login'));
+  runApp(MyApp(initialRoute: '/splash'));
 }
 
 class MyApp extends StatelessWidget {
@@ -26,8 +26,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: initialRoute,
+      initialRoute: '/splash',
       getPages: [
+        GetPage(name: '/splash', page: () => SplashView()),
         GetPage(name: '/login', page: () => LoginView()),
         GetPage(name: '/todo', page: () => TodoView()),
       ],
