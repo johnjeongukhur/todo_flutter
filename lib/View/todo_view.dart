@@ -33,63 +33,79 @@ class TodoView extends StatelessWidget {
           return Center(child: CircularProgressIndicator());
         } else {
           // Show the todo list when data is available
-          return ListView.builder(
-            itemCount: _viewModel.todoList.length,
-            itemBuilder: (context, index) {
-              var todo = _viewModel.todoList[index];
-              Color priorityColor = getPriorityColor(todo.priority);
+          return Stack(
+            children: [
+              ListView.builder(
+                itemCount: _viewModel.todoList.length,
+                itemBuilder: (context, index) {
+                  var todo = _viewModel.todoList[index];
+                  Color priorityColor = getPriorityColor(todo.priority);
 
-              return ListTile(
-                contentPadding: EdgeInsets.only(left: 20, top: 10, bottom: 10, right: 20),
-                title: Wrap(
-                  spacing: 8,
-                  children: [
-                    Container(
-                      width: 15,
-                      height: 15,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: priorityColor,
-                      ),
-                    ),
-
-                    Baseline(
-                      baseline: 15,
-                      baselineType: TextBaseline.alphabetic,
-                      child: Text(
-                        todo.title,
-                        style: TextStyle(
-                          fontFamily: 'NotoSans',
-                          fontSize: 18.0,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
+                  return ListTile(
+                    contentPadding: EdgeInsets.only(left: 20, top: 10, bottom: 10, right: 20),
+                    title: Wrap(
+                      spacing: 8,
+                      children: [
+                        Container(
+                          width: 15,
+                          height: 15,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: priorityColor,
+                          ),
                         ),
-                      ),
-                    ),
 
-                    Text(
-                      todo.createdAt.timeAgoSinceNow(),
-                      style: TextStyle(
-                        fontFamily: 'NotoSans',
-                        fontSize: 13.0,
-                        color: Colors.blueGrey,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
+                        Baseline(
+                          baseline: 15,
+                          baselineType: TextBaseline.alphabetic,
+                          child: Text(
+                            todo.title,
+                            style: TextStyle(
+                              fontFamily: 'NotoSans',
+                              fontSize: 18.0,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
 
-                  ],
-                ),
-                subtitle: Text(todo.description),
-                subtitleTextStyle: TextStyle(
-                  fontFamily: 'NotoSans',
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.normal,
-                ),
-                onTap: () {
-                  print('Todo 선택 ${todo.description}');
+                        Text(
+                          todo.createdAt.timeAgoSinceNow(),
+                          style: TextStyle(
+                            fontFamily: 'NotoSans',
+                            fontSize: 13.0,
+                            color: Colors.blueGrey,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+
+                      ],
+                    ),
+                    subtitle: Text(todo.description),
+                    subtitleTextStyle: TextStyle(
+                      fontFamily: 'NotoSans',
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.normal,
+                    ),
+                    onTap: () {
+                      print('Todo 선택 ${todo.description}');
+                    },
+                  );
                 },
-              );
-            },
+              ),
+              Positioned(
+                bottom: MediaQuery.of(context).padding.bottom + 20.0,
+                right: MediaQuery.of(context).size.width / 2 - 28,
+                child: FloatingActionButton(
+                  onPressed: () {
+                    // '+' 버튼이 눌렸을 때의 동작 추가
+                    //TODO: - 예: 새로운 항목을 추가하는 화면으로 이동
+                    // Get.
+                  },
+                  child: Icon(Icons.add),
+                ),
+              ),
+            ],
           );
         }
       }),
