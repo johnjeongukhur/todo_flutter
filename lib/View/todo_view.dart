@@ -1,4 +1,5 @@
 import 'package:first_flutter_project/Tool+Extension/string_extension.dart';
+import 'package:first_flutter_project/View/tododetail_view.dart';
 import 'package:first_flutter_project/ViewModel/todo_viewmodel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -89,6 +90,8 @@ class TodoView extends StatelessWidget {
                     ),
                     onTap: () {
                       print('Todo 선택 ${todo.description}');
+                      // Move to Detail view
+                      TodoDetailView().showBottomSheet(context);
                     },
                   );
                 },
@@ -100,7 +103,7 @@ class TodoView extends StatelessWidget {
                   onPressed: () {
                     // '+' 버튼이 눌렸을 때의 동작 추가
                     //TODO: - 예: 새로운 항목을 추가하는 화면으로 이동
-                    // Get.
+                    // Get.to(() => TodoDetailView());
                   },
                   child: Icon(Icons.add),
                 ),
