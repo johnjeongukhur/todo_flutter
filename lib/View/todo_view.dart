@@ -30,10 +30,8 @@ class TodoView extends StatelessWidget {
       ),
       body: Obx(() {
         if (_viewModel.isLoading.value) {
-          // Show a loading indicator while data is being fetched
           return Center(child: CircularProgressIndicator());
         } else {
-          // Show the todo list when data is available
           return Stack(
             children: [
               ListView.builder(
@@ -91,7 +89,7 @@ class TodoView extends StatelessWidget {
                     onTap: () {
                       print('Todo 선택 ${todo.description}');
                       // Move to Detail view
-                      TodoDetailView().showBottomSheet(context);
+                      TodoDetailView(id: todo.id).showBottomSheet(context);
                     },
                   );
                 },
@@ -101,7 +99,6 @@ class TodoView extends StatelessWidget {
                 right: MediaQuery.of(context).size.width / 2 - 28,
                 child: FloatingActionButton(
                   onPressed: () {
-                    // '+' 버튼이 눌렸을 때의 동작 추가
                     //TODO: - 예: 새로운 항목을 추가하는 화면으로 이동
                     // Get.to(() => TodoDetailView());
                   },
