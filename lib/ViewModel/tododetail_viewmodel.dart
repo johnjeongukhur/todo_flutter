@@ -1,23 +1,14 @@
-
-
 import 'dart:ffi';
 
 import 'package:first_flutter_project/Model/todo_model.dart';
-import 'package:first_flutter_project/Repositories/tododetail_repository.dart';
 import 'package:get/get.dart';
+import '../Repositories/todo_repository.dart';
 
 class TodoDetailViewModel extends GetxController {
   var isLoading = false.obs;
   var todo = Rx<TodoListResponse?>(null);
 
-  final TodoDetailRepository _todoDetailRepository = Get.put(TodoDetailRepository());
-
-  // @override
-  // void onInit() {
-  //   // TODO: implement onInit
-  //   super.onInit();
-  //   getDetailTodo(37);
-  // }
+  final TodoRepository _todoDetailRepository = Get.put(TodoRepository());
 
   void getDetailTodo(int id) async {
     try {
