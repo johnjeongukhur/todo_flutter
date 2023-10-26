@@ -15,7 +15,6 @@ class TodoDetailViewModel extends GetxController {
       isLoading(true);
       var data = await _todoDetailRepository.getTodoDetail(id);
       todo.value = data;
-      print('데이터ㅓㅓㅓ ${data.description}');
     } catch (error) {
       print('Failed to fetch todo detail: $error');
     } finally {

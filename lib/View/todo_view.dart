@@ -1,4 +1,5 @@
 import 'package:first_flutter_project/Tool+Extension/string_extension.dart';
+import 'package:first_flutter_project/View/todocreate_view.dart';
 import 'package:first_flutter_project/View/tododetail_view.dart';
 import 'package:first_flutter_project/ViewModel/todo_viewmodel.dart';
 import 'package:flutter/cupertino.dart';
@@ -100,7 +101,7 @@ class TodoView extends StatelessWidget {
                 child: FloatingActionButton(
                   onPressed: () {
                     //TODO: - 예: 새로운 항목을 추가하는 화면으로 이동
-                    // Get.to(() => TodoDetailView());
+                    Get.to(() => TodoCreateView());
                   },
                   child: Icon(Icons.add),
                 ),

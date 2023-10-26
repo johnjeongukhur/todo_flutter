@@ -24,4 +24,17 @@ class TodoRepository {
     }
   }
 
+  Future<void> postTodo(String title, String description, int priority) async {
+    try {
+      TodoListResponse newTodo = await _todoListService.postTodo(
+        title: title,
+        description: description,
+        priority: priority,
+        complete: false,
+      );
+      print('Todo created successfully! ID: ${newTodo.id}');
+    } catch (error) {
+      print('Failed to create todo: $error');
+    }
+  }
 }
