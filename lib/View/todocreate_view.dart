@@ -56,7 +56,7 @@ class _TodoCreateViewState extends State<TodoCreateView> {
               value: _priorityValue,
               onChanged: (Priority? newValue) {
                 setState(() {
-                  _priorityValue = (newValue?.value ?? Priority.low.value) as Priority;
+                  _priorityValue = newValue ?? Priority.low;
                 });
               },
               items: [
@@ -73,7 +73,7 @@ class _TodoCreateViewState extends State<TodoCreateView> {
               }).toList(),
               decoration: InputDecoration(labelText: 'Priority'),
             ),
-            SizedBox(height: 32),
+            SizedBox(height: 50),
             SizedBox(
               width: MediaQuery.of(context).size.width,
               height: 45,
