@@ -28,6 +28,10 @@ class _TodoViewState extends State<TodoView> {
     _viewModel.getAllTodo();
   }
 
+  Future<void> _refreshTodoList() async {
+    _viewModel.getAllTodo();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,86 +44,89 @@ class _TodoViewState extends State<TodoView> {
           ),
         ],
       ),
-      body: Obx(() {
-        if (_viewModel.isLoading.value) {
-          return Center(child: CircularProgressIndicator());
-        } else {
-          return Stack(
-            children: [
-              ListView.builder(
-                itemCount: _viewModel.todoList.length,
-                itemBuilder: (context, index) {
-                  var todo = _viewModel.todoList[index];
-                  Color priorityColor = getPriorityColor(todo.priority);
+      body: RefreshIndicator(
+        onRefresh: _refreshTodoList,
+        child: Obx(() {
+          if (_viewModel.isLoading.value) {
+            return Center(child: CircularProgressIndicator());
+          } else {
+            return Stack(
+              children: [
+                ListView.builder(
+                  itemCount: _viewModel.todoList.length,
+                  itemBuilder: (context, index) {
+                    var todo = _viewModel.todoList[index];
+                    Color priorityColor = getPriorityColor(todo.priority);
 
-                  return ListTile(
-                    contentPadding: EdgeInsets.only(left: 20, top: 10, bottom: 10, right: 20),
-                    title: Wrap(
-                      spacing: 8,
-                      children: [
-                        Container(
-                          width: 15,
-                          height: 15,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: priorityColor,
-                          ),
-                        ),
-
-                        Baseline(
-                          baseline: 15,
-                          baselineType: TextBaseline.alphabetic,
-                          child: Text(
-                            todo.title,
-                            style: TextStyle(
-                              fontFamily: 'NotoSans',
-                              fontSize: 18.0,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
+                    return ListTile(
+                      contentPadding: EdgeInsets.only(left: 20, top: 10, bottom: 10, right: 20),
+                      title: Wrap(
+                        spacing: 8,
+                        children: [
+                          Container(
+                            width: 15,
+                            height: 15,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: priorityColor,
                             ),
                           ),
-                        ),
 
-                        Text(
-                          todo.createdAt.timeAgoSinceNow(),
-                          style: TextStyle(
-                            fontFamily: 'NotoSans',
-                            fontSize: 13.0,
-                            color: Colors.blueGrey,
-                            fontWeight: FontWeight.normal,
+                          Baseline(
+                            baseline: 15,
+                            baselineType: TextBaseline.alphabetic,
+                            child: Text(
+                              todo.title,
+                              style: TextStyle(
+                                fontFamily: 'NotoSans',
+                                fontSize: 18.0,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
-                        ),
 
-                      ],
-                    ),
-                    subtitle: Text(todo.description),
-                    subtitleTextStyle: TextStyle(
-                      fontFamily: 'NotoSans',
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.normal,
-                    ),
-                    onTap: () {
-                      print('Todo 선택 ${todo.description}');
-                      // Move to Detail view
-                      TodoDetailView(id: todo.id).showBottomSheet(context);
-                    },
-                  );
-                },
-              ),
-              Positioned(
-                bottom: MediaQuery.of(context).padding.bottom + 20.0,
-                right: MediaQuery.of(context).size.width / 2 - 28,
-                child: FloatingActionButton(
-                  onPressed: () {
-                    Get.to(() => TodoCreateView());
+                          Text(
+                            todo.createdAt.timeAgoSinceNow(),
+                            style: TextStyle(
+                              fontFamily: 'NotoSans',
+                              fontSize: 13.0,
+                              color: Colors.blueGrey,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+
+                        ],
+                      ),
+                      subtitle: Text(todo.description),
+                      subtitleTextStyle: TextStyle(
+                        fontFamily: 'NotoSans',
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.normal,
+                      ),
+                      onTap: () {
+                        print('Todo 선택 ${todo.description}');
+                        // Move to Detail view
+                        TodoDetailView(id: todo.id).showBottomSheet(context);
+                      },
+                    );
                   },
-                  child: Icon(Icons.add),
                 ),
-              ),
-            ],
-          );
-        }
-      }),
+                Positioned(
+                  bottom: MediaQuery.of(context).padding.bottom + 20.0,
+                  right: MediaQuery.of(context).size.width / 2 - 28,
+                  child: FloatingActionButton(
+                    onPressed: () {
+                      Get.to(() => TodoCreateView());
+                    },
+                    child: Icon(Icons.add),
+                  ),
+                ),
+              ],
+            );
+          }
+        }),
+      ),
     );
   }
 }
@@ -140,4 +147,19 @@ Color getPriorityColor(int priority) {
     default:
       return Color(0xFFD9D9D9);
   }
+}
+
+enum Priority {
+  low(title: 'Low', value: 1),
+  medium(title: 'Medium', value: 2),
+  high(title: 'High', value: 3),
+  veryhigh(title: 'Very High', value: 4),
+  critical(title: 'Critical', value: 5);
+
+  final String title;
+  final int value;
+  const Priority({
+    required this.title,
+    required this.value,
+  });
 }

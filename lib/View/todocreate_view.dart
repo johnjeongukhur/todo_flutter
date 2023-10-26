@@ -1,3 +1,4 @@
+import 'package:first_flutter_project/View/todo_view.dart';
 import 'package:first_flutter_project/ViewModel/todocreate_viewmodel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -91,17 +92,3 @@ class _TodoCreateViewState extends State<TodoCreateView> {
   }
 }
 
-enum Priority {
-  low(title: 'Low', value: 1),
-  medium(title: 'Medium', value: 2),
-  high(title: 'High', value: 3),
-  veryhigh(title: 'Very High', value: 4),
-  critical(title: 'Critical', value: 5);
-
-  final String title;
-  final int value;
-  const Priority({
-    required this.title,
-    required this.value,
-  });
-}

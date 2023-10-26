@@ -1,4 +1,5 @@
 import 'package:first_flutter_project/View/todo_view.dart';
+import 'package:first_flutter_project/View/todoedit_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,8 @@ class _TodoDetailViewState extends State<TodoDetailView> {
 
   @override
   Widget build(BuildContext context) {
+    final id = widget.id;
+
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.8,
       child: SingleChildScrollView(
@@ -111,8 +114,7 @@ class _TodoDetailViewState extends State<TodoDetailView> {
                         Spacer(),
                         FloatingActionButton(
                           onPressed: () {
-                            //TODO: - 예: 새로운 항목을 추가하는 화면으로 이동
-                            // Get.to(() => TodoDetailView());
+                            Get.to(() => TodoEditView(id: id));
                           },
                           child: Icon(Icons.edit),
                         ),

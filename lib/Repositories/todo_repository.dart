@@ -37,4 +37,20 @@ class TodoRepository {
       print('Failed to create todo: $error');
     }
   }
+
+  Future<void> putTodo(int id, String title, String description, int priority) async {
+    try {
+      TodoListResponse newTodo = await _todoListService.putTodo(
+        id: id,
+        title: title,
+        description: description,
+        priority: priority,
+        complete: false,
+      );
+      print('Todo edited successfully! ID: ${newTodo.id}');
+    } catch (error) {
+      print('Failed to create todo: $error');
+    }
+  }
+
 }

@@ -57,6 +57,28 @@ class TodoService {
     }
   }
 
-
+  Future<TodoListResponse> putTodo({
+    required int id,
+    required String title,
+    required String description,
+    required int priority,
+    required bool complete,
+  }) async {
+    try {
+      Response response = await _dio.put(
+        '/todos/update/$id',
+        queryParameters: {
+          'todo_id': id,
+          'title': title,
+          'description': description,
+          'priority': priority,
+          'complete': complete,
+        },
+      );
+      return TodoListResponse.fromJson(response.data);
+    } catch (error) {
+      throw Exception('Failed to create todo: $error');
+    }
+  }
 
 }

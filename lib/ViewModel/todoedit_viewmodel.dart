@@ -1,0 +1,23 @@
+import 'package:first_flutter_project/Model/todo_model.dart';
+import 'package:first_flutter_project/View/tododetail_view.dart';
+import 'package:first_flutter_project/View/todoedit_view.dart';
+import 'package:get/get.dart';
+import '../Repositories/todo_repository.dart';
+
+class TodoEditViewModel extends GetxController {
+  var isLoading = false.obs;
+
+  final TodoRepository _todoRepository = Get.put(TodoRepository());
+
+  void putTodo(int id ,String title, String description, int priority) async {
+    try {
+      isLoading(true);
+      var data = await _todoRepository.putTodo(id, title, description, priority);
+      // Get.offAll(TodoDetailView(id: id));
+    } catch (error) {
+      print('Failed from viewmodel');
+    } finally {
+      isLoading(false);
+    }
+  }
+}
