@@ -8,13 +8,24 @@ import 'package:flutter/material.dart';
 
 import '../API/keychain.dart';
 
-class TodoView extends StatelessWidget {
+class TodoView extends StatefulWidget {
+  @override
+  _TodoViewState createState() => _TodoViewState();
+}
+
+class _TodoViewState extends State<TodoView> {
   final TodoViewModel _viewModel = Get.put(TodoViewModel());
   final TokenStorage _tokenStorage = TokenStorage();
 
   void _logout() async {
     await _tokenStorage.deleteToken();
     Get.offNamed('/login'); // Navigate to the login screen after logout
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _viewModel.getAllTodo();
   }
 
   @override
@@ -100,7 +111,6 @@ class TodoView extends StatelessWidget {
                 right: MediaQuery.of(context).size.width / 2 - 28,
                 child: FloatingActionButton(
                   onPressed: () {
-                    //TODO: - 예: 새로운 항목을 추가하는 화면으로 이동
                     Get.to(() => TodoCreateView());
                   },
                   child: Icon(Icons.add),

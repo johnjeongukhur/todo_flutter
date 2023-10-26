@@ -1,4 +1,5 @@
 import 'package:first_flutter_project/Model/todo_model.dart';
+import 'package:first_flutter_project/View/todo_view.dart';
 import 'package:get/get.dart';
 import '../Repositories/todo_repository.dart';
 
@@ -12,6 +13,7 @@ class TodoCreateViewModel extends GetxController {
       isLoading(true);
       var data = await _todoRepository.postTodo(title, description, priority);
       // data
+      Get.offAll(TodoView());
     } catch (error) {
       print('Failed from viewmodel');
     } finally {

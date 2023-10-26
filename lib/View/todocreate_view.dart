@@ -60,11 +60,11 @@ class _TodoCreateViewState extends State<TodoCreateView> {
                 });
               },
               items: [
-                Priority.low,
-                Priority.medium,
-                Priority.high,
-                Priority.veryhigh,
                 Priority.critical,
+                Priority.veryhigh,
+                Priority.high,
+                Priority.medium,
+                Priority.low,
               ].map<DropdownMenuItem<Priority>>((Priority priority) {
                 return DropdownMenuItem<Priority>(
                   value: priority,
