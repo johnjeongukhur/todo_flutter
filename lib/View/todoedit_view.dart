@@ -33,11 +33,8 @@ class _TodoEditViewState extends State<TodoEditView> {
   @override
   void initState() {
     super.initState();
-    // _viewModel.getAllTodo();
     _titleTextValue.text = widget.title;
     _descriptionTextValue.text = widget.description;
-    // _priorityValue.value = widget.priority;
-    // _priorityValue = Priority.critical;
     _priorityValue = Priority.getValue(widget.priority);
   }
 
