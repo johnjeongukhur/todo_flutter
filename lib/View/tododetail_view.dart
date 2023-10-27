@@ -114,7 +114,12 @@ class _TodoDetailViewState extends State<TodoDetailView> {
                         Spacer(),
                         FloatingActionButton(
                           onPressed: () {
-                            Get.to(() => TodoEditView(id: id));
+                            Get.to(() => TodoEditView(
+                              id: id,
+                              title: _viewModel.todo.value?.title ?? '',
+                              description: _viewModel.todo.value?.description ?? '',
+                              priority:  _viewModel.todo.value?.priority ?? 1,
+                            ));
                           },
                           child: Icon(Icons.edit),
                         ),

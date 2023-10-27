@@ -6,8 +6,16 @@ import 'package:flutter/material.dart';
 
 class TodoEditView extends StatefulWidget {
   final int id;
+  final String title;
+  final String description;
+  final int priority;
 
-  TodoEditView({required this.id});
+  TodoEditView({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.priority,
+  });
 
   @override
   _TodoEditViewState createState() => _TodoEditViewState();
@@ -26,6 +34,11 @@ class _TodoEditViewState extends State<TodoEditView> {
   void initState() {
     super.initState();
     // _viewModel.getAllTodo();
+    _titleTextValue.text = widget.title;
+    _descriptionTextValue.text = widget.description;
+    // _priorityValue.value = widget.priority;
+    // _priorityValue = Priority.critical;
+    _priorityValue = Priority.getValue(widget.priority);
   }
 
   @override

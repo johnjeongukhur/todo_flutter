@@ -162,4 +162,21 @@ enum Priority {
     required this.title,
     required this.value,
   });
+
+  factory Priority.getValue(int value) {
+    switch (value) {
+      case 1:
+        return Priority.low;
+      case 2:
+        return Priority.medium;
+      case 3:
+        return Priority.high;
+      case 4:
+        return Priority.veryhigh;
+      case 5:
+        return Priority.critical;
+      default:
+        throw Exception('Invalid priority value');
+    }
+  }
 }
