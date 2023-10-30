@@ -28,4 +28,31 @@ class TodoViewModel extends GetxController {
       isLoading(false);
     }
   }
+
+  void putIsCompleteTodo(int id, String title, String description, int priority, bool isComplete) async {
+    try {
+      isLoading(true);
+      var data = await _todoRepository.putTodo(id, title, description, priority, isComplete);
+      print('Todo Done!!!');
+    } catch (error) {
+      print('Error $error');
+    } finally {
+      getAllTodo();
+      isLoading(false);
+    }
+  }
+
+  void deleteTodo(int id) async {
+    try {
+      isLoading(true);
+      var data = await _todoRepository.deleteTodo(id);
+      print('Todo Deleted!!!');
+    } catch (error) {
+      print('Error $error');
+    } finally {
+      getAllTodo();
+      isLoading(false);
+    }
+  }
+
 }

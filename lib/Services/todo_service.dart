@@ -81,4 +81,19 @@ class TodoService {
     }
   }
 
+  Future<TodoListResponse> deleteTodo({
+    required int id,
+  }) async {
+    try {
+      Response response = await _dio.delete(
+        '/todos/delete/$id',
+      );
+      return TodoListResponse.fromJson(response.data);
+    } catch (error) {
+      throw Exception('Failed to create todo: $error');
+    }
+  }
+
+
+
 }

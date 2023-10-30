@@ -13,7 +13,7 @@ class TodoEditViewModel extends GetxController {
   void putTodo(int id ,String title, String description, int priority) async {
     try {
       isLoading(true);
-      var data = await _todoRepository.putTodo(id, title, description, priority);
+      var data = await _todoRepository.putTodo(id, title, description, priority, false);
       Get.offAll(TodoView());
     } catch (error) {
       print('Failed from viewmodel');

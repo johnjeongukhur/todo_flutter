@@ -38,19 +38,31 @@ class TodoRepository {
     }
   }
 
-  Future<void> putTodo(int id, String title, String description, int priority) async {
+  Future<void> putTodo(int todoId, String title, String description, int priority, bool isComplete) async {
     try {
       TodoListResponse newTodo = await _todoListService.putTodo(
-        id: id,
+        id: todoId,
         title: title,
         description: description,
         priority: priority,
-        complete: false,
+        complete: isComplete,
       );
       print('Todo edited successfully! ID: ${newTodo.id}');
     } catch (error) {
       print('Failed to create todo: $error');
     }
   }
+
+  Future<void> deleteTodo(int todoId) async {
+    try {
+      TodoListResponse newTodo = await _todoListService.deleteTodo(
+        id: todoId,
+      );
+      print('Todo deleted successfully! ID: ${newTodo.id}');
+    } catch (error) {
+      print('Failed to create todo: $error');
+    }
+  }
+
 
 }

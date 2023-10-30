@@ -5,6 +5,7 @@ import 'package:first_flutter_project/ViewModel/todo_viewmodel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 import '../API/keychain.dart';
 
@@ -58,57 +59,93 @@ class _TodoViewState extends State<TodoView> {
                     var todo = _viewModel.todoList[index];
                     Color priorityColor = getPriorityColor(todo.priority);
 
-                    return ListTile(
-                      contentPadding: EdgeInsets.only(left: 20, top: 10, bottom: 10, right: 20),
-                      title: Wrap(
-                        spacing: 8,
+                    return Slidable(
+                      key: Key(todo.id.toString()),
+
+                      endActionPane:  ActionPane(
+                        motion: ScrollMotion(),
+                        // dismissible: DismissiblePane(onDismissed: () {}),
                         children: [
-                          Container(
-                            width: 15,
-                            height: 15,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: priorityColor,
-                            ),
+                          SlidableAction(
+                            onPressed: (context) {
+                              // print('Deleted');
+                              _viewModel.deleteTodo(todo.id);
+                            },
+                            backgroundColor: Colors.red,
+                            foregroundColor: Colors.white,
+                            icon: Icons.delete,
+                            label: 'Delete',
                           ),
 
-                          Baseline(
-                            baseline: 15,
-                            baselineType: TextBaseline.alphabetic,
-                            child: Text(
-                              todo.title,
-                              style: TextStyle(
-                                fontFamily: 'NotoSans',
-                                fontSize: 18.0,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                          SlidableAction(
+                            onPressed: (context) {
+                              if (todo.complete) {
+                                _viewModel.putIsCompleteTodo(todo.id, todo.title, todo.description, todo.priority, false);
+                              } else {
+                                _viewModel.putIsCompleteTodo(todo.id, todo.title, todo.description, todo.priority, true);
+                              }
+                            },
+                            backgroundColor: Color(0xFF21B7CA),
+                            foregroundColor: Colors.white,
+                            icon: Icons.done,
+                            label: 'Done',
                           ),
-
-                          Text(
-                            todo.createdAt.timeAgoSinceNow(),
-                            style: TextStyle(
-                              fontFamily: 'NotoSans',
-                              fontSize: 13.0,
-                              color: Colors.blueGrey,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-
                         ],
                       ),
-                      subtitle: Text(todo.description),
-                      subtitleTextStyle: TextStyle(
-                        fontFamily: 'NotoSans',
-                        fontSize: 15.0,
-                        fontWeight: FontWeight.normal,
+
+
+                      child: ListTile(
+                        contentPadding: EdgeInsets.only(left: 20, top: 10, bottom: 10, right: 20),
+                        title: Wrap(
+                          spacing: 8,
+                          children: [
+                            Container(
+                              width: 15,
+                              height: 15,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: priorityColor,
+                              ),
+                            ),
+
+                            Baseline(
+                              baseline: 15,
+                              baselineType: TextBaseline.alphabetic,
+                              child: Text(
+                                todo.title,
+                                style: TextStyle(
+                                  fontFamily: 'NotoSans',
+                                  fontSize: 18.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+
+                            Text(
+                              todo.createdAt.timeAgoSinceNow(),
+                              style: TextStyle(
+                                fontFamily: 'NotoSans',
+                                fontSize: 13.0,
+                                color: Colors.blueGrey,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+
+                          ],
+                        ),
+                        subtitle: Text(todo.description),
+                        subtitleTextStyle: TextStyle(
+                          fontFamily: 'NotoSans',
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        onTap: () {
+                          print('Todo 선택 ${todo.description}');
+                          // Move to Detail view
+                          TodoDetailView(id: todo.id).showBottomSheet(context);
+                        },
                       ),
-                      onTap: () {
-                        print('Todo 선택 ${todo.description}');
-                        // Move to Detail view
-                        TodoDetailView(id: todo.id).showBottomSheet(context);
-                      },
                     );
                   },
                 ),
@@ -129,6 +166,14 @@ class _TodoViewState extends State<TodoView> {
       ),
     );
   }
+
+  // doNothing(BuildContext context) {
+  //   print('ggggg');
+  //   // setState(() {
+  //   //   itemsList!.removeWhere((item) => item.id == itemId);
+  //   // });
+  // }
+
 }
 
 
