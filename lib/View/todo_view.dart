@@ -18,11 +18,6 @@ class _TodoViewState extends State<TodoView> {
   final TodoViewModel _viewModel = Get.put(TodoViewModel());
   final TokenStorage _tokenStorage = TokenStorage();
 
-  void _logout() async {
-    await _tokenStorage.deleteToken();
-    Get.offNamed('/login'); // Navigate to the login screen after logout
-  }
-
   @override
   void initState() {
     super.initState();
@@ -41,7 +36,7 @@ class _TodoViewState extends State<TodoView> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.logout),
-            onPressed: _logout,
+            onPressed: _tokenStorage.deleteToken,
           ),
         ],
       ),
