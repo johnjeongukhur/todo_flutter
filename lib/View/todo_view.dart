@@ -48,9 +48,6 @@ class _TodoViewState extends State<TodoView> {
       body: RefreshIndicator(
         onRefresh: _refreshTodoList,
         child: Obx(() {
-          if (_viewModel.isLoading.value) {
-            return Center(child: CircularProgressIndicator());
-          } else {
             return Stack(
               children: [
                 ListView.builder(
@@ -63,12 +60,10 @@ class _TodoViewState extends State<TodoView> {
                       key: Key(todo.id.toString()),
 
                       endActionPane:  ActionPane(
-                        motion: ScrollMotion(),
-                        // dismissible: DismissiblePane(onDismissed: () {}),
+                        motion: const ScrollMotion(),
                         children: [
                           SlidableAction(
                             onPressed: (context) {
-                              // print('Deleted');
                               _viewModel.deleteTodo(todo.id);
                             },
                             backgroundColor: Colors.red,
@@ -92,7 +87,6 @@ class _TodoViewState extends State<TodoView> {
                           ),
                         ],
                       ),
-
 
                       child: ListTile(
                         contentPadding: EdgeInsets.only(left: 20, top: 10, bottom: 10, right: 20),
@@ -118,6 +112,7 @@ class _TodoViewState extends State<TodoView> {
                                   fontSize: 18.0,
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
+                                  decoration: todo.complete ? TextDecoration.lineThrough: TextDecoration.none
                                 ),
                               ),
                             ),
@@ -128,7 +123,7 @@ class _TodoViewState extends State<TodoView> {
                                 fontFamily: 'NotoSans',
                                 fontSize: 13.0,
                                 color: Colors.blueGrey,
-                                fontWeight: FontWeight.normal,
+                                decoration: todo.complete ? TextDecoration.lineThrough: TextDecoration.none
                               ),
                             ),
 
@@ -139,6 +134,7 @@ class _TodoViewState extends State<TodoView> {
                           fontFamily: 'NotoSans',
                           fontSize: 15.0,
                           fontWeight: FontWeight.normal,
+                          decoration: todo.complete ? TextDecoration.lineThrough: TextDecoration.none
                         ),
                         onTap: () {
                           print('Todo 선택 ${todo.description}');
@@ -159,21 +155,19 @@ class _TodoViewState extends State<TodoView> {
                     child: Icon(Icons.add),
                   ),
                 ),
+                Positioned(
+                    bottom: MediaQuery.of(context).size.height / 2 - 20,
+                    left: MediaQuery.of(context).size.width / 2 - 20,
+                    child:
+                  _viewModel.isLoading.value ? const CircularProgressIndicator() : const SizedBox.shrink()
+                ),
               ],
             );
           }
-        }),
+        ),
       ),
     );
   }
-
-  // doNothing(BuildContext context) {
-  //   print('ggggg');
-  //   // setState(() {
-  //   //   itemsList!.removeWhere((item) => item.id == itemId);
-  //   // });
-  // }
-
 }
 
 
