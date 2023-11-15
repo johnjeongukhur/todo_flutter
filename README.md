@@ -1,16 +1,21 @@
-# first_flutter_project
+# Todo App
 
-A new Flutter project.
+### Overview
+* Todo App 프로젝트는 Flutter 기반한 Getx 상태관리를 이용하여 간단한 할 일 목록을 관리하는 앱 입니다. 
 
-## Getting Started
+### 사용 기술 스택, 그 외 기술 하단에 기재
+* 상태관리: Getx
+* 네트워킈: Dio
+* 키체인: flutter_secure_storage
+* List UI 슬라이더: flutter_slidable
+  
+### Team
+- 개발자: 허정욱
+  
+### 개발 소요 기간
+* 총 한 달(iOS)
 
-This project is a starting point for a Flutter application.
+### Description
+* Todo 리스트 호출(Get), 추가(Post), 수정(Put), 삭제(Delte) 구현
+* 로그인 및 로그아웃,flutter_secure_storage 관리
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
